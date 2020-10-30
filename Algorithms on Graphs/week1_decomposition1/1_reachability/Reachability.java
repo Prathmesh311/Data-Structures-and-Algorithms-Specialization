@@ -1,12 +1,30 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Reachability {
     private static int reach(ArrayList<Integer>[] adj, int x, int y) {
         //write your code here
-        return 0;
+        int visited[] = new int[adj.length];          // make array to keep track of visited nodes
+        Arrays.fill(visited, 0);                      // initially set all values to 0
+
+        explore(visited, adj, x);                     // start exploring from root node
+
+        return visited[y];                            // return state of destination node if 1 then it's reachable
     }
 
+    public static void explore(int[] visited, ArrayList<Integer>[] adj, int x)    // function to DFS graph
+    {
+        visited[x] = 1;                               // make node as visited
+
+        for(int i : adj[x])                           // iterate through all adjacent nodes
+        {
+            if(visited[i] == 0)                       // if not visited
+            {
+                explore(visited, adj, i);             // visit recursively
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
