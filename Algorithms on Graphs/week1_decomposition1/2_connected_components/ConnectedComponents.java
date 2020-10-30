@@ -1,11 +1,37 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ConnectedComponents {
     private static int numberOfComponents(ArrayList<Integer>[] adj) {
-        int result = 0;
+        int cc = 0;
         //write your code here
-        return result;
+        int visited[] = new int[adj.length];        // make array to keep track of visited nodes
+        Arrays.fill(visited, 0);                // initially set all values to 0
+
+        for(int i=0; i < adj.length; i++)           // iterate trough all nodes
+        {
+            if(visited[i] == 0)                     // if node is note visited
+            {
+                explore(visited, adj, i);           // explore from that node
+                cc++;                               // add 1 to connected Componnet count
+            }
+        }
+
+        return cc;
+    }
+
+    public static  void explore(int[] visited, ArrayList<Integer>[] adj, int x)    // function to explore DFS from specific node
+    {
+        visited[x] = 1;                            // make node as visited
+
+        for(int i: adj[x])                         // iterate through all adjacent nodes
+        {
+            if(visited[i] == 0)                    // if not visited
+            {
+                explore(visited, adj, i);          // explore from that node
+            }
+        }
     }
 
     public static void main(String[] args) {
