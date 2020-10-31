@@ -14,17 +14,9 @@ public class Dijkstra {
 
         public int compareTo(Node o)
         {
-            if(this.dist > o.dist)
-            {
-                return 1;
-            }
-            else if(this.dist < o.dist)
-            {
-                return -1;
-            }
-            else {
-                return 0;
-            }
+            if(this.dist > o.dist) { return 1;}
+            else if(this.dist < o.dist) { return -1;}
+            else { return 0;}
         }
     }
     private static int distance(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
