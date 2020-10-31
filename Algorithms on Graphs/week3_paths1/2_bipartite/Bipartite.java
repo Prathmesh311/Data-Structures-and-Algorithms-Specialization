@@ -1,12 +1,50 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Bipartite {
     private static int bipartite(ArrayList<Integer>[] adj) {
         //write your code here
-        return -1;
+        int colour[]  = new int[adj.length];              // used to colour graph in 2 diff colour
+        Arrays.fill(colour, -1);                          // set first all nodes of graph as non-coloured
+
+        for(int i=0; i < adj.length; i++)                 // iterate throgh all nodes
+        {
+            if(colour[i] == -1)                           // if not coloured
+            {
+                if(!bfs(colour, adj, i))                  // BFS
+                {
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    }
+
+    public static boolean bfs(int[] colour, ArrayList<Integer>[] adj, int x)
+    {
+        Queue<Integer> q = new LinkedList<>();
+
+        q.add(x);
+        colour[x] = 1;
+
+        while(!q.isEmpty())
+        {
+            int curr = q.remove();
+            for(int i: adj[curr])
+            {
+                if(colour[i] == colour[curr])        // if adjacent nodes are same colour then it's not bipartite graph
+                {
+                    return false;
+                }
+                if(colour[i] == -1)                  // if not coloured yet
+                {
+                    colour[i] = 1 - colour[curr];    // colour adjacent node with diff colour
+                    q.add(i);
+                }
+            }
+        }
+        return true;
+
     }
 
     public static void main(String[] args) {
